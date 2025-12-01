@@ -6,6 +6,7 @@ function myFunction()
 {
     localStorage.clear()
 }
+document.querySelector('#username')
 
 function inicializarAplicacao() {
     console.log('Iniciando aplicação...');
