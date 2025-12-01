@@ -882,7 +882,10 @@ document.getElementById('searchInput').addEventListener('keypress', (e) => {
 });
 
 document.getElementById('loginBtn').addEventListener('click', () => {
-    alert('Funcionalidade de login será implementada em breve!');
+    if (localStorage.getItem("sessionActive") !== "true" || localStorage.getItem('currentUser') === null)
+        {
+        window.location.href = "http://127.0.0.1:5500/farmacia.old.001/index.html";
+        }
 });
 
 document.getElementById('cartBtn').addEventListener('click', () => {
