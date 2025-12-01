@@ -2,7 +2,10 @@
 let db;
 let produtos = [];
 
-
+function myFunction() 
+{
+    localStorage.clear()
+}
 
 function inicializarAplicacao() {
     console.log('Iniciando aplicação...');
