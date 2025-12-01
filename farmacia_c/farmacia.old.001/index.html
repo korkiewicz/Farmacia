@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmácia Login</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Tomorrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div id="result"></div>
+
+    <!-- Container do Login -->
+    <div class="login-container" id="login-container">
+        <!-- Formulário de Login -->
+        <div class="login-box" id="login-form">
+            <div class="login-header">
+                <h2>🏥 Login da Farmácia</h2>
+                <p style="color: #7f8c8d; margin-top: 10px; font-size: 14px;">Acesse sua conta</p>
+            </div>
+            <form class="login-form">
+                <div class="form-group">
+                    <label for="username">Nome de usuário</label>
+                    <input type="text" id="username" name="username" placeholder="Digite seu usuário" required>
+                    <div class="error-message" id="username-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+                    <div class="error-message" id="password-error"></div>
+                </div>
+                <button type="button" id="login-button" class="login-button">Entrar</button>
+            </form>
+
+            <div class="form-divider">
+                <span>ou</span>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <p style="color: #7f8c8d; font-size: 14px;">
+                    Ainda não tem uma conta?
+                </p>
+                <span class="create-account-link" id="create-account-link">
+                    Clique aqui para criar uma conta
+                </span>
+            </div>
+        </div>
+
+        <!-- Formulário de Criar Conta -->
+        <div class="login-box hidden" id="create-account-form">
+            <div class="login-header">
+                <h2>📝 Criar Nova Conta</h2>
+                <p style="color: #7f8c8d; margin-top: 10px; font-size: 14px;">Junte-se a nós hoje mesmo</p>
+            </div>
+            <form class="login-form">
+                <div class="form-group">
+                    <label for="usernamenovo">Nome de usuário</label>
+                    <input type="text" id="usernamenovo" name="contanova" placeholder="Escolha um nome de usuário" required>
+                    <div class="error-message" id="usernamenovo-error"></div>
+                </div>
+                <div class="form-group">
+                    <label for="passwordnovo">Senha</label>
+                    <input type="password" id="passwordnovo" name="contanova" placeholder="Crie uma senha segura" required>
+                    <div class="error-message" id="passwordnovo-error"></div>
+                    
+                    <div class="password-requirements">
+                        <h4>Requisitos da senha:</h4>
+                        <ul>
+                            <li id="req-length">Pelo menos 10 caracteres</li>
+                            <li id="req-number">Conter pelo menos um número</li>
+                            <li id="req-special">Conter Δ (delta maiúsculo) ou δ (delta minúsculo)</li>
+                        </ul>
+                    </div>
+                </div>
+                <button type="button" class="login-button create-account-btn" id='criouconta'>
+                    🚀 Criar Minha Conta
+                </button>
+                <button type="button" class="login-button back-to-login" id="back-to-login" style="margin-top: 10px;">
+                    ← Voltar para o Login
+                </button>
+            </form>
+        </div>
+    </div>
+
+ <!-- Página da Farmácia -->
+    <!-- <div class="farmacia-container" id="farmacia-container">
+        <div class="farmacia-header">
+            <h1>🏥 Farmácia Saúde Total</h1>
+            <div class="user-info">
+                <span id="user-welcome">Bem-vindo, Usuário!</span>
+                <button class="logout-btn" id="logout-btn">Sair</button>
+            </div>
+        </div>
+
+        <div class="farmacia-content">
+            <div class="produtos-section">
+                <h2>💊 Nossos Produtos</h2>
+                <div class="produtos-grid" id="produtos-grid">
+                    Produtos serão inseridos via JavaScript -->
+            <!--    </div>
+            </div>
+
+            <div class="carrinho-section">
+                <h2>🛒 Carrinho de Compras</h2>
+                <div class="carrinho-items" id="carrinho-items">
+                    <div class="carrinho-vazio" id="carrinho-vazio">
+                        Seu carrinho está vazio
+                    </div>
+                </div>
+                <div class="carrinho-total" id="carrinho-total" style="display: none;">
+                    <div class="total-line">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">R$ 0,00</span>
+                    </div>
+                    <div class="total-line">
+                        <span>Desconto:</span>
+                        <span id="desconto">R$ 0,00</span>
+                    </div>
+                    <div class="total-line total-final">
+                        <span>Total:</span>
+                        <span id="total-final">R$ 0,00</span>
+                    </div>
+                    <button class="finalizar-btn" id="finalizar-btn">Finalizar Compra</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- Script do SQLite3 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

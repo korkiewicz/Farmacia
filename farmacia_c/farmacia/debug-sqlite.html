@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug SQLite3</title>
+</head>
+<body>
+    <h1>Debug SQLite3 WASM</h1>
+    <div id="output" style="font-family: monospace; white-space: pre;"></div>
+
+    <script src="jswasm/sqlite3.js"></script>
+    <script>
+        const output = document.getElementById('output');
+        
+        function log(msg) {
+            console.log(msg);
+            output.textContent += msg + '\n';
+        }
+
+        log('=== DEBUG SQLITE3 WASM ===');
+        
+        window.sqlite3InitModule().then((sqlite3) => {
+            log('✅ SQLite3 inicializado');
+            log('Métodos disponíveis: ' + Object.keys(sqlite3).join(', '));
+            
+            const db = new sqlite3.oo1.DB("/test.db");
+            log('✅ Banco criado');
+            
+            db.exec("CREATE TABLE IF NOT EXISTS debug (id INTEGER, name TEXT)");
+            log('✅ Tabela criada');
+            
+            // TESTE 1: INSERT
+            db.exec("INSERT OR IGNORE INTO debug VALUES (1, 'Teste')");
+            log('✅ INSERT executado');
+            
+            // TESTE 2: SELECT com exec()
+            log('\n--- TESTE exec() ---');
+            try {
+                const result1 = db.exec("SELECT * FROM debug");
+                log('exec() resultado: ' + JSON.stringify(result1));
+                log('Tipo: ' + typeof result1);
+                log('É array: ' + Array.isArray(result1));
+                if (result1) {
+                    log('Keys: ' + Object.keys(result1));
+                }
+            } catch(e) {
+                log('❌ exec() falhou: ' + e.message);
+            }
+            
+            // TESTE 3: SELECT com prepare()
+            log('\n--- TESTE prepare() ---');
+            try {
+                const stmt = db.prepare("SELECT * FROM debug");
+                log('prepare() funcionou');
+                
+                let hasData = stmt.step();
+                log('step() resultado: ' + hasData);
+                
+                if (hasData) {
+                    try {
+                        const row = stmt.get();
+                        log('get() resultado: ' + JSON.stringify(row));
+                        log('Tipo: ' + typeof row);
+                        log('É array: ' + Array.isArray(row));
+                    } catch(e) {
+                        log('❌ get() falhou: ' + e.message);
+                    }
+                }
+                
+                stmt.finalize();
+                log('finalize() OK');
+            } catch(e) {
+                log('❌ prepare() falhou: ' + e.message);
+            }
+            
+            // TESTE 4: SELECT com iterate()
+            log('\n--- TESTE iterate() ---');
+            try {
+                const stmt = db.prepare("SELECT * FROM debug");
+                for(const row of stmt.iterate()) {
+                    log('iterate() resultado: ' + JSON.stringify(row));
+                }
+                stmt.finalize();
+            } catch(e) {
+                log('❌ iterate() falhou: ' + e.message);
+            }
+            
+            db.close();
+            
+        }).catch((error) => {
+            log('❌ Erro: ' + error);
+        });
+    </script>
+</body>
+</html>
