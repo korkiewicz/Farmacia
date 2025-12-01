@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmácia Igor</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Tomorrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="LojaOnLine">
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>🏥 Farmácia Igor</h1>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="O que você está buscando?...">
+                <button id="searchBtn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="header-actions">
+                <button id="loginBtn">Login</button>
+                <button id="cartBtn" class="cart-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span id="cartCount" class="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="productsContainer" class="products-grid"></div>
+    </main>
+
+    <!-- Carrinho Lateral -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h2>Meu Carrinho</h2>
+            <button id="closeCart" class="close-cart-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <div id="cartItems" class="cart-items"></div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotalPrice">R$ 0,00</span>
+            </div>
+            <button id="finalizePurchase" class="finalize-btn">Finalizar Compra</button>
+        </div>
+    </div>
+    <div id="cartOverlay" class="cart-overlay"></div>
+
+    <!-- Modal de Finalização -->
+    <div id="checkoutModal" class="checkout-modal">
+        <div class="checkout-content">
+            <div class="checkout-header">
+                <h2>Minha Cesta</h2>
+                <button id="closeCheckout" class="close-checkout-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="checkout-body">
+                <!-- Tabela de Produtos -->
+                <div class="checkout-table">
+                    <div class="table-header">
+                        <div class="col-product">Produto</div>
+                        <div class="col-delivery">Entrega</div>
+                        <div class="col-price">Preço</div>
+                        <div class="col-quantity">Quantidade</div>
+                        <div class="col-total">Total</div>
+                    </div>
+                    <div id="checkoutProductsList" class="table-body"></div>
+                </div>
+
+                <!-- Grid: Entrega (Esquerda) + Cupom/Resumo (Direita) -->
+                <div class="checkout-grid">
+                    <!-- Coluna Esquerda: Entrega -->
+                    <div class="checkout-left">
+                        <div class="checkout-section">
+                            <h3>Entrega</h3>
+                            
+                            <div class="cep-section">
+                                <label>Calcular frete e prazo</label>
+                                <div class="cep-input-group">
+                                    <input type="text" id="deliveryCEP" placeholder="Digite seu CEP" maxlength="9">
+                                    <button id="calculateShipping" class="btn-calculate">Calcular</button>
+                                </div>
+                                <small>Receber em até 1 item no CEP <span id="displayCEP">00000-000</span></small>
+                            </div>
+
+                            <div class="delivery-options-horizontal">
+                                <label class="delivery-option-card">
+                                    <input type="radio" name="delivery" value="loja" data-price="0" checked>
+                                    <div class="delivery-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                        </svg>
+                                    </div>
+                                    <div class="delivery-card-details">
+                                        <strong>Retirada em Loja</strong>
+                                        <div class="delivery-price">R$ 0,00</div>
+                                        <div class="delivery-badge">Grátis</div>
+                                    </div>
+                                </label>
+
+                                <label class="delivery-option-card">
+                                    <input type="radio" name="delivery" value="padrao" data-price="5.90">
+                                    <div class="delivery-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <rect x="1" y="3" width="15" height="13"></rect>
+                                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+                                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                        </svg>
+                                    </div>
+                                    <div class="delivery-card-details">
+                                        <strong>Entrega Padrão</strong>
+                                        <div class="delivery-time">Em até 1 dia</div>
+                                        <div class="delivery-price">R$ 5,90</div>
+                                    </div>
+                                </label>
+
+                                <label class="delivery-option-card">
+                                    <input type="radio" name="delivery" value="programada" data-price="7.90">
+                                    <div class="delivery-icon">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"></circle>
+                                            <polyline points="12 6 12 12 16 14"></polyline>
+                                        </svg>
+                                    </div>
+                                    <div class="delivery-card-details">
+                                        <strong>Entrega Programada</strong>
+                                        <div class="delivery-time">Agendar</div>
+                                        <div class="delivery-price">A partir de R$ 7,90</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coluna Direita: Cupom + Resumo -->
+                    <div class="checkout-right">
+                        <!-- Cupom de Desconto -->
+                        <div class="checkout-section">
+                            <div class="coupon-section">
+                                <div class="coupon-icon">🎟️</div>
+                                <div class="coupon-info">
+                                    <strong>Cupom de desconto</strong>
+                                    <div class="coupon-available">Você tem <span id="couponCount">1</span> cupom disponível para usar</div>
+                                </div>
+                            </div>
+                            
+                            <div class="coupon-input-group">
+                                <input type="text" id="couponCode" placeholder="Insira o código aqui" style="text-transform: uppercase;">
+                                <button id="applyCoupon" class="btn-apply">Ativar</button>
+                            </div>
+                            
+                            <button id="viewCoupons" class="btn-view-coupons">VER CUPONS DISPONÍVEIS (1)</button>
+                        </div>
+
+                        <!-- Resumo -->
+                        <div class="checkout-summary-box">
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="summarySubtotal">R$ 0,00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Entrega</span>
+                                <span id="summaryDelivery">R$ 0,00</span>
+                            </div>
+                            <div class="summary-row discount" id="summaryDiscountRow" style="display: none;">
+                                <span>Desconto</span>
+                                <span id="summaryDiscount">- R$ 0,00</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>Total</span>
+                                <span id="summaryTotal">R$ 0,00</span>
+                            </div>
+                            <div class="free-shipping-info" id="freeShippingInfo" style="display: none;">
+                                Faltam R$ <span id="freeShippingValue">0,00</span> para frete grátis com entrega padrão
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checkout-footer">
+                <button id="continueShoppingBtn" class="btn-continue">ESCOLHER MAIS PRODUTOS</button>
+                <button id="confirmPurchaseBtn" class="btn-finalize">FINALIZAR COMPRA</button>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- SQLite3 WASM -->
+    <script src="jswasm/sqlite3.js"></script>
+    
+    <script>
+        console.log('=== INICIALIZAÇÃO FARMÁCIA IGOR WASM ===');
+        
+        let sqlite3Ready = false;
+        
+        function inicializarSistema() {
+            console.log('Inicializando SQLite3 WASM...');
+            
+            if (window.sqlite3InitModule) {
+                window.sqlite3InitModule().then((sqlite3) => {
+                    console.log('✅ SQLite3 WASM inicializado!');
+                    window.SQLite3 = sqlite3; // Torna disponível globalmente
+                    sqlite3Ready = true;
+                    
+                    // AGORA sim carrega o script principal
+                    carregarScriptPrincipal();
+                    
+                }).catch((error) => {
+                    console.error('❌ Erro na inicialização WASM:', error);
+                    carregarScriptPrincipal(); // Carrega mesmo com erro
+                });
+            } else {
+                console.error('❌ sqlite3InitModule não encontrado');
+                carregarScriptPrincipal();
+            }
+        }
+       
+    function carregarScriptPrincipal() {
+        const script = document.createElement('script');
+        script.src = 'script.js';
+        script.onload = function() {
+            console.log('✅ Script principal carregado');
+            if (sqlite3Ready && typeof inicializarAplicacao === 'function') {
+                inicializarAplicacao();
+            } else {
+                console.log('SQLite3 não disponível - aplicação depende do banco');
+            }
+        };
+        document.head.appendChild(script);
+    }
+        
+        window.addEventListener('load', inicializarSistema);
+    </script>
+</div>
+</body>
+</html>
