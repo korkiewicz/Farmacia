@@ -6,7 +6,7 @@ function myFunction()
 {
     localStorage.clear()
 }
-document.querySelector('#username')
+document.querySelector('#username').innerHTML = `${localStorage.getItem('currentUser')}`
 
 function inicializarAplicacao() {
     console.log('Iniciando aplicação...');
