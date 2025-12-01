@@ -435,7 +435,7 @@ function enterAccount() {
         setTimeout(function() {
             localStorage.setItem('currentUser', name);
             localStorage.setItem('sessionActive', 'true');
-            window.location.href = "http://127.0.0.1:5500/farmacia/index.html";
+            window.location.href = 'https://korkiewicz.github.io/Farmacia/farmacia_c/farmacia/';
 
 
 
