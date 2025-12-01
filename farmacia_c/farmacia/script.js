@@ -907,7 +907,7 @@ document.getElementById('finalizePurchase').addEventListener('click', () => {
     }
     if (localStorage.getItem("sessionActive") !== "true")
         {
-        window.location.href = "https://korkiewicz.github.io/Farmacia/farmacia_c/farmacia.old.001/";
+        window.location.href = "http://127.0.0.1:5500/farmacia.old.001/index.html";
         }
     
     abrirCheckout();
