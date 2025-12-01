@@ -4,7 +4,7 @@ let produtos = [];
 
 function myFunction() 
 {
-    localStorage.clear()
+    //localStorage.clear()
 }
 document.querySelector('#username').innerHTML = `${localStorage.getItem('currentUser')}`
 
