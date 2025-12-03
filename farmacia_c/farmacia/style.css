@@ -369,6 +369,15 @@ main {
     background-color: #0052a3;
 }
 
+
+
+.checkout-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+
 @media (max-width: 768px) {
     header .container {
         flex-direction: column;
@@ -405,9 +414,10 @@ main {
         padding: 20px;
     }
     
-    .checkout-grid {
-        grid-template-columns: 1fr;
-    }
+        .checkout-grid {
+            grid-template-columns: 1fr;
+            /* grid-auto-flow: column; */
+        }
     
     .delivery-options-horizontal {
         grid-template-columns: 1fr;
@@ -956,12 +966,8 @@ main {
     border-bottom: 2px solid #e0e0e0;
 }
 
-/* Grid: Entrega (Esquerda) + Cupom/Resumo (Direita) */
-.checkout-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 20px;
-}
+
+
 
 .checkout-left {
     display: flex;

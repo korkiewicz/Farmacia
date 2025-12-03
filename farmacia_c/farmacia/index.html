@@ -14,22 +14,13 @@
             </div>
             <div class="search-bar">
                 <input type="text" id="searchInput" placeholder="O que você está buscando?...">
-                <button id="searchBtn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <path d="m21 21-4.35-4.35"></path>
-                    </svg>
-                </button>
+                <button id="searchBtn">🔎</button>
             </div>
             <div class="header-actions">
                 <p id = 'username'></p>
                 <button id="loginBtn">Login</button>
                 <button id="cartBtn" class="cart-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                        <line x1="3" y1="6" x2="21" y2="6"></line>
-                        <path d="M16 10a4 4 0 0 1-8 0"></path>
-                    </svg>
+                    🛍️
                     <span id="cartCount" class="cart-count">0</span>
                 </button>
             </div>
@@ -45,10 +36,7 @@
         <div class="cart-header">
             <h2>Meu Carrinho</h2>
             <button id="closeCart" class="close-cart-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
+                X
             </button>
         </div>
         <div id="cartItems" class="cart-items"></div>
@@ -68,10 +56,7 @@
             <div class="checkout-header">
                 <h2>Minha Cesta</h2>
                 <button id="closeCheckout" class="close-checkout-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
+                    X
                 </button>
             </div>
             
@@ -108,10 +93,7 @@
                                 <label class="delivery-option-card">
                                     <input type="radio" name="delivery" value="loja" data-price="0" checked>
                                     <div class="delivery-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                                        </svg>
+                                        🏠
                                     </div>
                                     <div class="delivery-card-details">
                                         <strong>Retirada em Loja</strong>
@@ -123,12 +105,7 @@
                                 <label class="delivery-option-card">
                                     <input type="radio" name="delivery" value="padrao" data-price="5.90">
                                     <div class="delivery-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <rect x="1" y="3" width="15" height="13"></rect>
-                                            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
-                                            <circle cx="5.5" cy="18.5" r="2.5"></circle>
-                                            <circle cx="18.5" cy="18.5" r="2.5"></circle>
-                                        </svg>
+                                        🚗
                                     </div>
                                     <div class="delivery-card-details">
                                         <strong>Entrega Padrão</strong>
@@ -140,10 +117,7 @@
                                 <label class="delivery-option-card">
                                     <input type="radio" name="delivery" value="programada" data-price="7.90">
                                     <div class="delivery-icon">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <circle cx="12" cy="12" r="10"></circle>
-                                            <polyline points="12 6 12 12 16 14"></polyline>
-                                        </svg>
+                                        🕓
                                     </div>
                                     <div class="delivery-card-details">
                                         <strong>Entrega Programada</strong>
@@ -254,6 +228,6 @@
         
         window.addEventListener('load', inicializarSistema);
     </script>
-
+<script src= 'Backup.js'></script>
 </body>
 </html>

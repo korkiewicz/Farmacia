@@ -2,18 +2,20 @@
 let db;
 let produtos = [];
 
+
 function myFunction() 
 {
-    //localStorage.clear()
+    
+
 }
-document.querySelector('#username').innerHTML = `${localStorage.getItem('currentUser')}`
+document.querySelector('#username').innerHTML = `bem vindo ${localStorage.getItem('currentUser')}! `
 
 function inicializarAplicacao() {
     console.log('Iniciando aplicação...');
 
     if (typeof SQLite3 === 'undefined') {
         console.error('SQLite3 NÃO DISPONÍVEL');
-        carregarDadosEstaticos();
+        
         return;
     }
 
@@ -52,15 +54,13 @@ function inicializarBancoDados() {
         
     } catch(e) {
         console.error('Erro ao abrir banco:', e);
-        carregarDadosEstaticos();
+        
     }
 }
 
 
 
-function carregarDadosEstaticos() {
-    console.log('Carregando dados estáticos... **somente dev**');
-}
+
 
 function inserirProdutosIniciais() {
     try {
@@ -166,8 +166,10 @@ function linhaProdutoParaObjeto(linhaProduto) {
         imagem: linhaProduto[11]
     };
 }
-// Carrinho de compras
+
 let carrinho = [];
+carrinho = JSON.parse(localStorage.getItem('carrinho')) || [];
+
 
 // Renderizar produtos
 function renderizarProdutos(listaProdutos = produtos) {
@@ -326,6 +328,8 @@ function adicionarAoCarrinho(produtoId) {
         carrinho.push({
             ...produto,
             quantidade: quantidade
+
+
         });
     }
     
@@ -392,7 +396,7 @@ function renderizarCarrinho() {
         
         cartItem.innerHTML = `
             <div class="cart-item-image">
-                <img src="../imagens/${item.imagem}" alt="${item.nome}" onerror="this.src='${imagemFallback}'">
+                <img src="imagens/${item.imagem}" alt="${item.nome}" onerror="this.src='${imagemFallback}'">
             </div>
             <div class="cart-item-details">
                 <div class="cart-item-name">${item.nome}</div>
@@ -572,7 +576,8 @@ function renderizarProdutosCheckout() {
         row.innerHTML = `
             <div class="product-info">
                 <div class="product-img">
-                    <img src="../imagens/${item.imagem}" alt="${item.nome}" onerror="this.src='${imagemFallback}'">
+                    <img src="imagens/${item.imagem}" 
+                    alt="${item.nome}" onerror="this.src='${imagemFallback}'">
                 </div>
                 <div class="product-details">
                     <h4>${item.nome}</h4>
@@ -780,6 +785,7 @@ function confirmarCompra() {
     let pedidos = JSON.parse(localStorage.getItem('pedidos') || '[]');
     pedidos.push(pedido);
     localStorage.setItem('pedidos', JSON.stringify(pedidos));
+    localStorage.removeItem('carrinho');
     
     const numeroPedido = Math.floor(100000 + Math.random() * 900000);
     
@@ -888,7 +894,12 @@ document.getElementById('searchInput').addEventListener('keypress', (e) => {
 document.getElementById('loginBtn').addEventListener('click', () => {
     if (localStorage.getItem("sessionActive") !== "true" || localStorage.getItem('currentUser') === null)
         {
-        window.location.href = "https://korkiewicz.github.io/Farmacia/farmacia_c/farmacia.old.001/";
+        
+        localStorage.setItem('carrinho', JSON.stringify(carrinho));
+
+
+        window.location.href = "../farmacia.old.001/index.html";
+
         }
 });
 
@@ -911,7 +922,10 @@ document.getElementById('finalizePurchase').addEventListener('click', () => {
     }
     if (localStorage.getItem("sessionActive") !== "true")
         {
-        window.location.href = "https://korkiewicz.github.io/Farmacia/farmacia_c/farmacia.old.001/";
+        localStorage.setItem('carrinho', JSON.stringify(carrinho));
+
+        alert('⚠️ Você precisa estar logado para finalizar a compra.\n\nSerá redirecionado para a página de login.');
+        window.location.href = "../farmacia.old.001/index.html";
         }
     
     abrirCheckout();
