@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmácia Igor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onbeforeunload="myFunction()">
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="imagens/Pharma.png" alt="">
+            </div>
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="O que você está buscando?...">
+                <button id="searchBtn">🔎</button>
+            </div>
+            <div class="header-actions">
+                <p id = 'username'></p>
+                <button id="loginBtn">Login</button>
+                <button id="cartBtn" class="cart-btn">
+                    🛍️
+                    <span id="cartCount" class="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="productsContainer" class="products-grid"></div>
+    </main>
+
+    <!-- Carrinho Lateral -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h2>Meu Carrinho</h2>
+            <button id="closeCart" class="close-cart-btn">
+                X
+            </button>
+        </div>
+        <div id="cartItems" class="cart-items"></div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotalPrice">R$ 0,00</span>
+            </div>
+            <button id="finalizePurchase" class="finalize-btn">Finalizar Compra</button>
+        </div>
+    </div>
+    <div id="cartOverlay" class="cart-overlay"></div>
+
+    <!-- Modal de Finalização -->
+    <div id="checkoutModal" class="checkout-modal">
+        <div class="checkout-content">
+            <div class="checkout-header">
+                <h2>Minha Cesta</h2>
+                <button id="closeCheckout" class="close-checkout-btn">
+                    X
+                </button>
+            </div>
+            
+            <div class="checkout-body">
+                <!-- Tabela de Produtos -->
+                <div class="checkout-table">
+                    <div class="table-header">
+                        <div class="col-product">Produto</div>
+                        <div class="col-delivery">Entrega</div>
+                        <div class="col-price">Preço</div>
+                        <div class="col-quantity">Quantidade</div>
+                        <div class="col-total">Total</div>
+                    </div>
+                    <div id="checkoutProductsList" class="table-body"></div>
+                </div>
+
+                <!-- Grid: Entrega (Esquerda) + Cupom/Resumo (Direita) -->
+                <div class="checkout-grid">
+                    <!-- Coluna Esquerda: Entrega -->
+                    <div class="checkout-left">
+                        <div class="checkout-section">
+                            <h3>Entrega</h3>
+                            
+                            <div class="cep-section">
+                                <label>Calcular frete e prazo</label>
+                                <div class="cep-input-group">
+                                    <input type="text" id="deliveryCEP" placeholder="Digite seu CEP" maxlength="9">
+                                    <button id="calculateShipping" class="btn-calculate">Calcular</button>
+                                </div>
+                                <small>Receber em até 1 item no CEP <span id="displayCEP">00000-000</span></small>
+                            </div>
+
+                            <div class="delivery-options-horizontal">
+                                <label class="delivery-option-card">
+                                    <input type="radio" name="delivery" value="loja" data-price="0" checked>
+                                    <div class="delivery-icon">
+                                        🏠
+                                    </div>
+                                    <div class="delivery-card-details">
+                                        <strong>Retirada em Loja</strong>
+                                        <div class="delivery-price">R$ 0,00</div>
+                                        <div class="delivery-badge">Grátis</div>
+                                    </div>
+                                </label>
+
+                                <label class="delivery-option-card">
+                                    <input type="radio" name="delivery" value="padrao" data-price="5.90">
+                                    <div class="delivery-icon">
+                                        🚗
+                                    </div>
+                                    <div class="delivery-card-details">
+                                        <strong>Entrega Padrão</strong>
+                                        <div class="delivery-time">Em até 1 dia</div>
+                                        <div class="delivery-price">R$ 5,90</div>
+                                    </div>
+                                </label>
+
+                                <label class="delivery-option-card">
+                                    <input type="radio" name="delivery" value="programada" data-price="7.90">
+                                    <div class="delivery-icon">
+                                        🕓
+                                    </div>
+                                    <div class="delivery-card-details">
+                                        <strong>Entrega Programada</strong>
+                                        <div class="delivery-time">Agendar</div>
+                                        <div class="delivery-price">A partir de R$ 7,90</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coluna Direita: Cupom + Resumo -->
+                    <div class="checkout-right">
+                        <!-- Cupom de Desconto -->
+                        <div class="checkout-section">
+                            <div class="coupon-section">
+                                <div class="coupon-icon">🎟️</div>
+                                <div class="coupon-info">
+                                    <strong>Cupom de desconto</strong>
+                                    <div class="coupon-available">Você tem <span id="couponCount">1</span> cupom disponível para usar</div>
+                                </div>
+                            </div>
+                            
+                            <div class="coupon-input-group">
+                                <input type="text" id="couponCode" placeholder="Insira o código aqui" style="text-transform: uppercase;">
+                                <button id="applyCoupon" class="btn-apply">Ativar</button>
+                            </div>
+                            
+                            <button id="viewCoupons" class="btn-view-coupons">VER CUPONS DISPONÍVEIS (1)</button>
+                        </div>
+
+                        <!-- Resumo -->
+                        <div class="checkout-summary-box">
+                            <div class="summary-row">
+                                <span>Subtotal</span>
+                                <span id="summarySubtotal">R$ 0,00</span>
+                            </div>
+                            <div class="summary-row">
+                                <span>Entrega</span>
+                                <span id="summaryDelivery">R$ 0,00</span>
+                            </div>
+                            <div class="summary-row discount" id="summaryDiscountRow" style="display: none;">
+                                <span>Desconto</span>
+                                <span id="summaryDiscount">- R$ 0,00</span>
+                            </div>
+                            <div class="summary-row total">
+                                <span>Total</span>
+                                <span id="summaryTotal">R$ 0,00</span>
+                            </div>
+                            <div class="free-shipping-info" id="freeShippingInfo" style="display: none;">
+                                Faltam R$ <span id="freeShippingValue">0,00</span> para frete grátis com entrega padrão
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="checkout-footer">
+                <button id="continueShoppingBtn" class="btn-continue">ESCOLHER MAIS PRODUTOS</button>
+                <button id="confirmPurchaseBtn" class="btn-finalize">FINALIZAR COMPRA</button>
+            </div>
+        </div>
+    </div>
+ 
+    <!-- SQLite3 WASM -->
+    <script src="jswasm/sqlite3.js"></script>
+    
+    <script>
+        console.log('=== INICIALIZAÇÃO FARMÁCIA IGOR WASM ===');
+        
+        let sqlite3Ready = false;
+        
+        function inicializarSistema() {
+            console.log('Inicializando SQLite3 WASM...');
+            
+            if (window.sqlite3InitModule) {
+                window.sqlite3InitModule().then((sqlite3) => {
+                    console.log('✅ SQLite3 WASM inicializado!');
+                    window.SQLite3 = sqlite3; // Torna disponível globalmente
+                    sqlite3Ready = true;
+                    
+                    // AGORA sim carrega o script principal
+                    carregarScriptPrincipal();
+                    
+                }).catch((error) => {
+                    console.error('❌ Erro na inicialização WASM:', error);
+                    carregarScriptPrincipal(); // Carrega mesmo com erro
+                });
+            } else {
+                console.error('❌ sqlite3InitModule não encontrado');
+                carregarScriptPrincipal();
+            }
+        }
+       
+    function carregarScriptPrincipal() {
+        const script = document.createElement('script');
+        script.src = 'script.js';
+        script.onload = function() {
+            console.log('✅ Script principal carregado');
+            if (sqlite3Ready && typeof inicializarAplicacao === 'function') {
+                inicializarAplicacao();
+            } else {
+                console.log('SQLite3 não disponível - aplicação depende do banco');
+            }
+        };
+        document.head.appendChild(script);
+    }
+        
+        window.addEventListener('load', inicializarSistema);
+    </script>
+<script src= 'Backup.js'></script>
+</body>
+</html>
